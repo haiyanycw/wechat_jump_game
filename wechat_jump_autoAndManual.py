@@ -53,7 +53,7 @@ DEBUG_SWITCH = True
 # 棋子的宽度，比截图中量到的稍微大一点比较安全，可能要调节
 #piece_body_width = config['piece_body_width']
 under_game_score_y=200
-press_coefficient=2.4#2.3
+press_coefficient=2.4
 piece_base_height_1_2=13
 piece_body_width=47
 
@@ -237,7 +237,7 @@ def main():
     while True:
         screenshot.pull_screenshot()
         im = Image.open('./autojump.png')        
-        # 获取棋子和 board 的位置        
+        # 获取棋子和 board 的位置
         piece_x, piece_y, board_x, board_y = find_piece_and_board(im)
         ts = int(time.time())
         print(ts, piece_x, piece_y, board_x, board_y)
@@ -251,8 +251,6 @@ def main():
             debug.backup_screenshot(ts)
         im.close()
         i += 1
-        if not all((piece_x, piece_y, board_x, board_y)):
-            sys.exit()
         if i == next_rest:
             print('已经连续打了 {} 下，休息 {}s'.format(i, next_rest_time))
             for j in range(next_rest_time):

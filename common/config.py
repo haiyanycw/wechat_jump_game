@@ -14,7 +14,7 @@ def open_accordant_config():
     """
     screen_size = _get_screen_size()
     config_file = "{path}/config/{screen_size}/config.json".format(
-        path=sys.path[0],
+        path=sys.path[2],
         screen_size=screen_size
     )
     if os.path.exists(config_file):

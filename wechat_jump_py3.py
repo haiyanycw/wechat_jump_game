@@ -1,23 +1,33 @@
 # -*- coding: utf-8 -*-
+#微信程序运行后，python获得截图，鼠标点击起始和终止位置，程序自动计算距离，再根据距离计算手机上触摸时间
+
 import os
 import time
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from PIL import Image
-
+import random
+from subprocess import run
+#%matplotlib qt5
 
 def pull_screenshot():
-    os.system('adb shell screencap -p /sdcard/autojump.png')
-    os.system('adb pull /sdcard/autojump.png .')
+    #os.system('adb shell screencap -p /sdcard/autojump.png')
+    #os.system('adb pull /sdcard/autojump.png .')
+    run('adb shell screencap -p /sdcard/autojump.png',shell=True)
+    run('adb pull /sdcard/autojump.png .',shell=True)
 
 
 def jump(distance):
-    press_time = distance * 1.35
+    press_time = distance * 2.3
     press_time = int(press_time)
-    cmd = 'adb shell input swipe 320 410 320 410 ' + str(press_time)
+    right=random.uniform(600-50, 600+50)
+    down=random.uniform(1150-50, 1150+50)
+    cmd = 'adb shell input swipe {0} {1} {0} {1} '.format(right,down) + str(press_time)
+    #cmd = 'adb shell input swipe 320 410 320 410 ' + str(press_time)
     print(cmd)
-    os.system(cmd)
+    run(cmd,shell=True)
+    #os.system(cmd)
 
 
 fig = plt.figure()
